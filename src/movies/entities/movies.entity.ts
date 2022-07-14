@@ -1,9 +1,9 @@
-import Category from "./category.entity";
+import Category from "../../category/entities/category.entity";
 import { v4 as uuid } from "uuid";
 import { Entity, Column, CreateDateColumn, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
 
 @Entity("movies")
-export default class Videos {
+export default class Movies {
 	@PrimaryColumn("uuid")
 	id: string;
 
@@ -13,7 +13,7 @@ export default class Videos {
 	@Column("varchar")
 	description: string;
 
-	@Column("int")
+	@Column("float")
 	duration: number;
 
 	@Column("uuid")
