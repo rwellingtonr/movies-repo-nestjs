@@ -1,10 +1,16 @@
-import Category from "../../category/entities/category.entity";
-import { v4 as uuid } from "uuid";
-import { Entity, Column, CreateDateColumn, PrimaryColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Category } from "../../category/entities/category.entity";
+import {
+	Entity,
+	Column,
+	CreateDateColumn,
+	ManyToOne,
+	JoinColumn,
+	PrimaryGeneratedColumn,
+} from "typeorm";
 
 @Entity("movies")
-export default class Movies {
-	@PrimaryColumn("uuid")
+export class Movies {
+	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
 	@Column("varchar")
@@ -13,7 +19,7 @@ export default class Movies {
 	@Column("varchar")
 	description: string;
 
-	@Column("float")
+	@Column("int")
 	duration: number;
 
 	@Column("uuid")
@@ -25,8 +31,4 @@ export default class Movies {
 
 	@CreateDateColumn()
 	created_at: Date;
-
-	constructor() {
-		if (!this.id) this.id = uuid();
-	}
 }

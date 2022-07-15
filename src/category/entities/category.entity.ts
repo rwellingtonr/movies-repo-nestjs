@@ -1,9 +1,9 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn } from "typeorm";
+import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
 @Entity("categories")
-export default class Category {
-	@PrimaryColumn("uuid")
+export class Category {
+	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
 	@Column("varchar")

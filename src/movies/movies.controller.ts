@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from "@nestjs/common";
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	Patch,
+	Param,
+	Delete,
+	Res,
+	HttpStatus,
+	Logger,
+} from "@nestjs/common";
 import { MoviesService } from "./movies.service";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
@@ -6,12 +17,19 @@ import { Response } from "express";
 
 @Controller("movies")
 export class MoviesController {
+	private logger = new Logger(MoviesService.name);
+
 	constructor(private readonly moviesService: MoviesService) {}
 
 	@Post()
 	async create(@Res() res: Response, @Body() createMovieDto: CreateMovieDto) {
-		const movie = await this.moviesService.create(createMovieDto);
-		return res.status(HttpStatus.CREATED).json(movie);
+		try {
+			const movie = await this.moviesService.create(createMovieDto);
+			return res.status(HttpStatus.CREATED).json(movie);
+		} catch (error) {
+			this.logger.error(error.message);
+			return res.status(error.code || 400).send({ message: error.message });
+		}
 	}
 
 	@Get()

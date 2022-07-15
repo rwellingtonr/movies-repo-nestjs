@@ -1,13 +1,29 @@
 import { Module } from "@nestjs/common";
-import { AppController } from "./app.controller";
 import { ConfigModule } from "@nestjs/config";
-import { AppService } from "./app.service";
 import { MoviesModule } from "./movies/movies.module";
 import { CategoryModule } from "./category/category.module";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
-	imports: [MoviesModule, CategoryModule, ConfigModule.forRoot()],
-	controllers: [AppController],
-	providers: [AppService],
+	imports: [
+		ConfigModule.forRoot(),
+		TypeOrmModule.forRoot({
+			type: "postgres",
+			host: process.env.DB_HOST,
+			port: +process.env.DB_PORT,
+			username: process.env.DB_USERNAME,
+			password: process.env.DB_PSW,
+			database: process.env.DATABASE,
+			synchronize: true,
+			logging: true,
+			entities: [__dirname + "/**/*.entity{.ts,.js}"],
+			subscribers: [],
+			migrations: [],
+		}),
+		MoviesModule,
+		CategoryModule,
+	],
+	controllers: [],
+	providers: [],
 })
 export class AppModule {}

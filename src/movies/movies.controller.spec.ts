@@ -1,4 +1,5 @@
 import { Test, TestingModule } from "@nestjs/testing";
+import { CreateMovieDto } from "./dto/create-movie.dto";
 import { MoviesController } from "./movies.controller";
 import { MoviesService } from "./movies.service";
 
@@ -16,5 +17,9 @@ describe("MoviesController", () => {
 
 	it("should be defined", () => {
 		expect(controller).toBeDefined();
+	});
+
+	it("should return all movies", async () => {
+		expect(controller.findAll()).toHaveProperty(["id"]);
 	});
 });
