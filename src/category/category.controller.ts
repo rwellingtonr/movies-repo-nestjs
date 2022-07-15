@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Res, HttpStatus } from "@nestjs/common";
+import {
+	Controller,
+	Get,
+	Post,
+	Body,
+	Patch,
+	Param,
+	Delete,
+	Res,
+	HttpStatus,
+	Logger,
+} from "@nestjs/common";
 import { Response } from "express";
 import { CategoryService } from "./category.service";
 import { CreateCategoryDto } from "./dto/create-category.dto";
@@ -6,6 +17,7 @@ import { UpdateCategoryDto } from "./dto/update-category.dto";
 
 @Controller("category")
 export class CategoryController {
+	private logger = new Logger(CategoryController.name);
 	constructor(private readonly categoryService: CategoryService) {}
 
 	@Post()
@@ -14,6 +26,7 @@ export class CategoryController {
 			const category = await this.categoryService.create(createCategoryDto);
 			return res.status(HttpStatus.CREATED).json(category);
 		} catch (error) {
+			this.logger.error(error.message);
 			return res.status(error.code || HttpStatus.BAD_REQUEST).send(error.message);
 		}
 	}
@@ -24,6 +37,7 @@ export class CategoryController {
 			const categories = await this.categoryService.findAll();
 			return res.status(HttpStatus.OK).json(categories);
 		} catch (error) {
+			this.logger.error(error.message);
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -34,6 +48,7 @@ export class CategoryController {
 			const category = await this.categoryService.findOne(id);
 			return res.status(HttpStatus.OK).json(category);
 		} catch (error) {
+			this.logger.error(error.message);
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
 	}
@@ -48,6 +63,7 @@ export class CategoryController {
 			const updated = await this.categoryService.update(id, updateCategoryDto);
 			return res.status(HttpStatus.OK).json(updated);
 		} catch (error) {
+			this.logger.error(error.message);
 			return res.status(error.code || HttpStatus.BAD_REQUEST).send(error.message);
 		}
 	}
@@ -58,6 +74,7 @@ export class CategoryController {
 			await this.categoryService.remove(id);
 			return res.sendStatus(HttpStatus.OK);
 		} catch (error) {
+			this.logger.error(error.message);
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
 	}
