@@ -20,11 +20,7 @@ export class MoviesService {
 		const name = this.formatName(createMovieDto.name);
 
 		const alreadyExists = await this.moviesRepository.findOne({ where: { name } });
-		console.log(alreadyExists);
-
-		if (alreadyExists) {
-			throw { code: 409, message: "This movie already exists" };
-		}
+		if (alreadyExists) throw { code: 409, message: "This movie already exists" };
 
 		const movie = this.moviesRepository.create({ ...createMovieDto, name });
 		this.logger.log("Saving movie");
