@@ -8,7 +8,7 @@ const dbConfig = {
 	password: process.env.DB_PSW,
 	database: process.env.DATABASE,
 	synchronize: true,
-	logging: true,
+	logging: false,
 	entities: [__dirname + "./../**/*.entity{.ts,.js}"],
 	subscribers: [],
 	migrations: [],
