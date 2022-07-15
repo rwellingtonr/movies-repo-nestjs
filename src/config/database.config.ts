@@ -1,25 +1,26 @@
 import "dotenv/config";
 
-const dbConfig = {
+const basicDBInfo = {
 	type: "postgres",
-	host: process.env.DB_HOST,
-	port: +process.env.DB_PORT,
-	username: process.env.DB_USERNAME,
-	password: process.env.DB_PSW,
-	database: process.env.DATABASE,
+	entities: [__dirname + "./../**/*.entity{.ts,.js}"],
 	synchronize: true,
 	logging: false,
-	entities: [__dirname + "./../**/*.entity{.ts,.js}"],
 	subscribers: [],
 	migrations: [],
 };
 
-const databaseConfig = {
+export const databaseConfig = {
 	prod: {
-		...dbConfig,
+		...basicDBInfo,
+		url: process.env.DATABASE_URL,
 		ssl: { rejectUnauthorized: false },
 	},
-	dev: dbConfig,
+	dev: {
+		...basicDBInfo,
+		host: process.env.DB_HOST,
+		port: +process.env.DB_PORT,
+		username: process.env.DB_USERNAME,
+		password: process.env.DB_PSW,
+		database: process.env.DATABASE,
+	},
 };
-
-export { databaseConfig };
