@@ -21,7 +21,8 @@ export class CategoryController {
 	@Get()
 	async findAll(@Res() res: Response) {
 		try {
-			return await this.categoryService.findAll();
+			const categories = await this.categoryService.findAll();
+			return res.status(HttpStatus.OK).json(categories);
 		} catch (error) {
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
@@ -30,7 +31,8 @@ export class CategoryController {
 	@Get(":id")
 	async findOne(@Res() res: Response, @Param("id") id: string) {
 		try {
-			return await this.categoryService.findOne(id);
+			const category = await this.categoryService.findOne(id);
+			return res.status(HttpStatus.OK).json(category);
 		} catch (error) {
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
@@ -43,7 +45,8 @@ export class CategoryController {
 		@Body() updateCategoryDto: UpdateCategoryDto,
 	) {
 		try {
-			return await this.categoryService.update(id, updateCategoryDto);
+			const updated = await this.categoryService.update(id, updateCategoryDto);
+			return res.status(HttpStatus.OK).json(updated);
 		} catch (error) {
 			return res.status(error.code || HttpStatus.BAD_REQUEST).send(error.message);
 		}
@@ -52,7 +55,8 @@ export class CategoryController {
 	@Delete(":id")
 	async remove(@Res() res: Response, @Param("id") id: string) {
 		try {
-			return await this.categoryService.remove(id);
+			await this.categoryService.remove(id);
+			return res.sendStatus(HttpStatus.OK);
 		} catch (error) {
 			return res.sendStatus(HttpStatus.NOT_FOUND);
 		}
