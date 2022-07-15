@@ -3,24 +3,12 @@ import { ConfigModule } from "@nestjs/config";
 import { MoviesModule } from "./movies/movies.module";
 import { CategoryModule } from "./category/category.module";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { databaseConfig } from "./config/database.config";
 
 @Module({
 	imports: [
 		ConfigModule.forRoot(),
-		TypeOrmModule.forRoot({
-			type: "postgres",
-			host: process.env.DB_HOST,
-			port: +process.env.DB_PORT,
-			username: process.env.DB_USERNAME,
-			password: process.env.DB_PSW,
-			database: process.env.DATABASE,
-			ssl: { rejectUnauthorized: false },
-			synchronize: true,
-			logging: true,
-			entities: [__dirname + "/**/*.entity{.ts,.js}"],
-			subscribers: [],
-			migrations: [],
-		}),
+		TypeOrmModule.forRoot(databaseConfig[process.env.NODE_STATUS]),
 		MoviesModule,
 		CategoryModule,
 	],
