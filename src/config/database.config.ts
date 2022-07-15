@@ -9,7 +9,7 @@ const dbConfig = {
 	database: process.env.DATABASE,
 	synchronize: true,
 	logging: true,
-	entities: [__dirname + "/**/*.entity{.ts,.js}"],
+	entities: [__dirname + "./../**/*.entity{.ts,.js}"],
 	subscribers: [],
 	migrations: [],
 };
