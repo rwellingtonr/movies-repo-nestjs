@@ -23,6 +23,7 @@ export class MoviesService {
 		if (alreadyExists) throw { code: 409, message: "This movie already exists" };
 
 		const movie = this.moviesRepository.create({ ...createMovieDto, name });
+
 		this.logger.log("Saving movie");
 		return await this.moviesRepository.save(movie);
 	}
