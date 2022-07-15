@@ -13,7 +13,8 @@ lerna-debug.log*
 
 # OS
 .DS_Store
-
+db
+pgdata
 # Tests
 /coverage
 /.nyc_output
