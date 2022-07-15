@@ -5,7 +5,7 @@ export class Category {
 	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
-	@Column("varchar")
+	@Column({ type: "varchar", unique: true })
 	name: string;
 
 	@Column("varchar")
