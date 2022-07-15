@@ -20,7 +20,7 @@ export class CategoryService {
 
 		if (exists) throw { message: "Already exists", code: 409 };
 
-		const category = this.categoryRepository.create(createCategoryDto);
+		const category = this.categoryRepository.create({ ...createCategoryDto, name });
 
 		return await this.categoryRepository.save(category);
 	}
