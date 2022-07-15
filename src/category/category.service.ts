@@ -18,7 +18,7 @@ export class CategoryService {
 
 		const exists = await this.categoryRepository.findOne({ where: { name } });
 
-		if (exists) throw new Error("Already exists");
+		if (exists) throw { message: "Already exists", code: 409 };
 
 		const category = this.categoryRepository.create(createCategoryDto);
 
