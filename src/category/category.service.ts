@@ -36,8 +36,13 @@ export class CategoryService {
 		return category;
 	}
 
-	async update(id: string, updateCategoryDto: UpdateCategoryDto) {
-		return `This action updates a #${id} category`;
+	async update(id: string, { description }: UpdateCategoryDto) {
+		const category = await this.categoryRepository.findOne({ where: { id } });
+		if (!category) throw new Error("Could not find this movie");
+
+		category.description = description;
+
+		return await this.categoryRepository.save(category);
 	}
 
 	async remove(id: string) {
