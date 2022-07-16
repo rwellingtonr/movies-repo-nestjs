@@ -44,7 +44,7 @@ Após feito isso, os filmes podem ser adicionado passando o ID da categoria a qu
 
 |  Tecnologias   |        Descrição        | Experiência |
 | :------------: | :---------------------: | :---------: |
-|   Framework    |         NestJs          |    1 ano    |
+|   Framework    |         NestJs          |   5 meses   |
 | Banco de dados |        Postgres         |   1,5 ano   |
 |      ORM       |         TypeOrm         |    1 ano    |
 |   Container    |     docker-compose      |   7 meses   |
