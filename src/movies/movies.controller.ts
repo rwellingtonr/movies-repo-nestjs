@@ -14,6 +14,7 @@ import { MoviesService } from "./movies.service";
 import { CreateMovieDto } from "./dto/create-movie.dto";
 import { UpdateMovieDto } from "./dto/update-movie.dto";
 import { Response } from "express";
+import { ApiConflictResponse, ApiNotFoundResponse, ApiResponse } from "@nestjs/swagger";
 
 @Controller("movies")
 export class MoviesController {
@@ -22,6 +23,8 @@ export class MoviesController {
 	constructor(private readonly moviesService: MoviesService) {}
 
 	@Post()
+	@ApiConflictResponse({ description: "Conflito, nome da categoria deve ser única" })
+	@ApiResponse({ status: 400, description: "Bad request" })
 	async create(@Res() res: Response, @Body() createMovieDto: CreateMovieDto) {
 		try {
 			const movie = await this.moviesService.create(createMovieDto);
@@ -33,6 +36,13 @@ export class MoviesController {
 	}
 
 	@Get()
+	@ApiResponse({
+		status: 200,
+		description: "Retorna todos os valores encontrados",
+		isArray: true,
+		type: CreateMovieDto,
+	})
+	@ApiResponse({ status: 400, description: "Bad request" })
 	async findAll(@Res() res: Response) {
 		try {
 			const movies = await this.moviesService.findAll();
@@ -44,6 +54,12 @@ export class MoviesController {
 	}
 
 	@Get(":id")
+	@ApiResponse({
+		status: 200,
+		description: "Retorna o valor encontrado pelo id",
+		type: CreateMovieDto,
+	})
+	@ApiNotFoundResponse({ description: "Não foi possível encontrar pelo id" })
 	async findOne(@Res() res: Response, @Param("id") id: string) {
 		try {
 			const movie = await this.moviesService.findOne(id);
@@ -55,14 +71,21 @@ export class MoviesController {
 	}
 
 	@Patch(":id")
+	@ApiResponse({
+		status: 200,
+		description: "Retorna o valor com a descrição  atualizada",
+		type: CreateMovieDto,
+	})
+	@ApiNotFoundResponse({ description: "Não foi possível encontrar pelo id" })
+	@ApiResponse({ status: 400, description: "Bad request" })
 	async update(
 		@Res() res: Response,
 		@Param("id") id: string,
 		@Body() updateMovieDto: UpdateMovieDto,
 	) {
 		try {
-			await this.moviesService.update(id, updateMovieDto);
-			return res.status(HttpStatus.OK).json();
+			const updatedMovie = await this.moviesService.update(id, updateMovieDto);
+			return res.status(HttpStatus.OK).json(updatedMovie);
 		} catch (error) {
 			this.logger.error(error.message);
 			return res.status(error.code || HttpStatus.BAD_REQUEST).send(error.message);
@@ -70,6 +93,8 @@ export class MoviesController {
 	}
 
 	@Delete(":id")
+	@ApiResponse({ status: 200, description: "Retorna vazio" })
+	@ApiNotFoundResponse({ description: "Não foi possível encontrar pelo id" })
 	async remove(@Res() res: Response, @Param("id") id: string) {
 		try {
 			await this.moviesService.remove(id);
