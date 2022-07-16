@@ -12,9 +12,6 @@ cd movies-repo-nestjs
 #Instalação de dependências
 yarn
 
-# Rodar os testes (opcional)
-yarn test
-
 #Abrir com o editor de texto (opcional)
 code .
 
@@ -30,6 +27,16 @@ http://localhost:3000/api
 
 #OBS: Docker compose será necessário.
 ```
+
+## Testes
+
+Clique no botão do Insomnia para importas todas as requisições. Caso não o link não abra, o arquivo estará disponibilizado dentro da pasta docs.
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=Movies-Repo&uri=https%3A%2F%2Fgithub.com%2Frwellingtonr%2Fmovies-repo-nestjs%2Fblob%2Fmaster%2Fdocs%2FInsomnia_2022-07-15.json)
+
+Assim que a importação for realizada, comece pelo CRUD de categorias dos filmes a serem adicionados posteriormente.
+
+Após feito isso, os filmes podem ser adicionado passando o ID da categoria a qual ele pertence. O CRUD dos filmes irá gerenciar as entidades dos filmes, assim como os de categorias.
 
 ## Tecnologias
 
