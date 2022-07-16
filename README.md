@@ -42,11 +42,12 @@ Após feito isso, os filmes podem ser adicionado passando o ID da categoria a qu
 
 ## Tecnologias
 
-|  Tecnologias   |        Descrição        |
-| :------------: | :---------------------: |
-|   Framework    |         NestJs          |
-| Banco de dados |        Postgres         |
-|      ORM       |         TypeOrm         |
-|   Container    |     docker-compose      |
-|  Documentação  |         Swagger         |
-|   Linguagem    | JavaScript (TypeScript) |
+|  Tecnologias   |        Descrição        | Experiência |
+| :------------: | :---------------------: | :---------: |
+|   Framework    |         NestJs          |    1 ano    |
+| Banco de dados |        Postgres         |   1,5 ano   |
+|      ORM       |         TypeOrm         |    1 ano    |
+|   Container    |     docker-compose      |   7 meses   |
+|  Documentação  |         Swagger         |      -      |
+|   Linguagem    | JavaScript (TypeScript) |   1,5 Ano   |
+|     Teste      |          Jest           |   3 meses   |
